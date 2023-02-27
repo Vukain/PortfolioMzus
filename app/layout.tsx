@@ -1,9 +1,12 @@
+import 'normalize.css';
 import './globals.sass'
+
+import { Navigation } from './shared/Navigation/Navigation'
 
 export const metadata = {
   title: 'Mzus - Portfolio',
   description: 'Mzus - Portfolio...',
-}
+};
 
 export default function RootLayout({
   children,
@@ -18,7 +21,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Navigation />
+        {children}
+      </body>
     </html>
   )
 }

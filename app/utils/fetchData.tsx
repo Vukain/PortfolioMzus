@@ -9,11 +9,29 @@ const client = contentful.createClient({
     accessToken: accessToken as string
 });
 
-export const fetchEntries = cache(async () => {
-    // const response = await client.getContentType('imageList');
-    const entries = await client.getEntries({ content_type: 'imageList' });
+type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string }> } };
+type CloudinaryVideo = { fields: { title: string, link: string } };
+type ContentfulImages = { fields: { title: string, content: Array<CloudinaryImage> } };
+type ContentfulVideos = { fields: { title: string, content: Array<CloudinaryVideo> } };
 
-    if (entries.items) {
-        return entries.items
+export const fetchEntries = cache(async () => {
+
+    const imageLists = await client.getEntries({ content_type: 'image-list' }).then((response) => { return response.items }) as Array<ContentfulImages>;
+    const videoLists = await client.getEntries({ content_type: 'video-list' }).then((response) => { return response.items }) as Array<ContentfulVideos>;
+
+    const [concepts] = imageLists.filter((item) => item.fields.title === 'concept-images');
+    const [digital] = imageLists.filter((item) => item.fields.title === 'digital-images');
+    const [animations] = videoLists.filter((item) => item.fields.title === 'animation-videos');
+
+    // console.log(animations.fields.title)
+
+    const content = {
+        concepts: concepts.fields,
+        digital: digital.fields,
+        animations: animations.fields
+    }
+
+    if (imageLists || videoLists) {
+        return content
     };
 });

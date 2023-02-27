@@ -6,32 +6,29 @@ import styles from './page.module.sass'
 
 import { fetchEntries } from './utils/fetchData'
 import { NextPage } from 'next'
+import { Gallery } from './shared/Gallery/Gallery'
 
 // const inter = Inter({ subsets: ['latin'] })
 
 type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string }> } };
-type ContentfulImageList = Array<{ metadata: unknown, sys: unknown, fields: { title: string, content: Array<CloudinaryImage> } }>
-// type PropsType = { entries: CloudinaryImage[] }
+type CloudinaryVideo = { fields: { title: string, link: string } };
+type ContentfulImages = { title: string, content: Array<CloudinaryImage> };
+type ContentfulVideos = { title: string, content: Array<CloudinaryVideo> };
+
+type fetchedData = {
+  concepts: ContentfulImages,
+  digital: ContentfulImages,
+  animations: ContentfulVideos
+};
 
 const Home = async () => {
 
-  const fetchedEntries = await fetchEntries() as ContentfulImageList;
-  const entries: CloudinaryImage[] = [];
-
-  if (fetchedEntries) {
-    for (const entry of fetchedEntries) {
-      entries.push(...entry.fields.content);
-    };
-  };
-
-  const testImages = entries.map((image: CloudinaryImage, idx: number) => {
-    return <img key={idx} src={`${image.fields.cloudinary_image[0].url}`} alt={image.fields.title}></img>
-  })
+  const fetchedEntries = await fetchEntries() as fetchedData;
 
   return (
     <>
       <main className={styles.main}>
-        {testImages}
+        <Gallery data={fetchedEntries.concepts} />
       </main>
     </>
   )
@@ -39,4 +36,4 @@ const Home = async () => {
 
 export default Home;
 
-export const revalidate = 120;
+export const revalidate = 900;
