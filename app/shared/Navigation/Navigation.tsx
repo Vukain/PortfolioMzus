@@ -10,7 +10,7 @@ type ButtonData = { name: string, url: string };
 export const Navigation: React.FC = () => {
 
     const pathname = usePathname();
-    console.log(pathname)
+    // console.log(pathname)
 
     const buttonsData: ButtonData[] = [{ name: 'concepts', url: '' }, { name: 'digital', url: 'digital' }, { name: 'animation', url: 'animation' }];
 
