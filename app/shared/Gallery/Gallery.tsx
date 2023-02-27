@@ -24,6 +24,7 @@ export const Gallery: React.FC<MyProps> = ({ data }) => {
                 return <img className={styles.image} key={idx} src={`${item.fields.cloudinary_image[0].url}`} alt={item.fields.title}></img>
             } else {
                 return <iframe
+                    key={idx}
                     width="560"
                     height="315"
                     src={`${item.fields.link}`}
