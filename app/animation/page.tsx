@@ -1,4 +1,4 @@
-
+import Head from 'next/head'
 
 import { Gallery } from '../shared/Gallery/Gallery';
 import { fetchEntries } from '../utils/fetchData'
@@ -19,9 +19,18 @@ const Animation = async () => {
     const fetchedEntries = await fetchEntries() as fetchedData;
 
     return (
-        <main>
-            <Gallery data={fetchedEntries.animations} />
-        </main>
+        <>
+            <Head>
+                <title>Contact - TitleMetaNextjs</title>
+                <meta
+                    name="description"
+                    content="Meta description for the Contact page"
+                />
+            </Head>
+            <main>
+                <Gallery data={fetchedEntries.animations} />
+            </main>
+        </>
     )
 }
 

@@ -12,7 +12,7 @@ export const Navigation: React.FC = () => {
     const pathname = usePathname();
     // console.log(pathname)
 
-    const buttonsData: ButtonData[] = [{ name: 'concepts', url: '' }, { name: 'digital', url: 'digital' }, { name: 'animation', url: 'animation' }];
+    const buttonsData: ButtonData[] = [{ name: 'concept', url: '' }, { name: 'digital', url: 'digital' }, { name: 'animation', url: 'animation' }];
 
     const buttonsList = buttonsData.map((item, index) => (<Link href={`${item.url}`} key={index + item.name} className={styles.button}>{item.name}</Link>));
 
