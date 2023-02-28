@@ -2,4 +2,29 @@
     height: 10vh
     width: 100vw
     display: flex
-    gap: 5vw
+    padding: 1vh 5vw
+    gap: 2vw
+    justify-content: center
+    // align-items: center
+
+.link
+    all: unset
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-grow: 0
+    color: #fff
+    padding: 0 1vw
+    text-transform: uppercase
+    transition: flex-grow .7s ease-in, background-color .3s
+    &:hover
+        background-color: #575757
+
+.active
+    background-color: #383838
+    flex-grow: 1
+
+// .text
+//     width: 100%
+//     height: 100%

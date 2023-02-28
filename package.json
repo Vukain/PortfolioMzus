@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.29.5-appdir.0",
+    "clsx": "^1.2.1",
     "sass": "^1.58.3"
   }
 }

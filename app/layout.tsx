@@ -1,4 +1,4 @@
-import 'normalize.css';
+import 'normalize.css/normalize.css';
 import './globals.sass'
 
 import { Navigation } from './shared/Navigation/Navigation'

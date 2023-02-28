@@ -8,27 +8,24 @@ type MyProps = { data: { title: string, content: Array<ImageOrVideo> } }
 
 export const Gallery: React.FC<MyProps> = ({ data }) => {
 
-    function determineIfIsImagesOrVideos(toBeDetermined: ImageOrVideo): toBeDetermined is CloudinaryImage {
+    const determineImagesOrVideos = (toBeDetermined: ImageOrVideo): toBeDetermined is CloudinaryImage => {
         if ((toBeDetermined as CloudinaryImage).fields.cloudinary_image) {
-            return true
-        }
-        return false
-    }
+            return true;
+        };
+        return false;
+    };
 
     let content;
 
     if (data.content.length > 0) {
 
         content = data.content.map((item: ImageOrVideo, idx: number) => {
-            if (determineIfIsImagesOrVideos(item)) {
+            if (determineImagesOrVideos(item)) {
 
                 const { url, format, version, public_id } = item.fields.cloudinary_image[0];
 
                 const getAccount = url.match('.com/(.*)/image');
                 const account = getAccount ? getAccount[1] : null;
-
-                // https://res.cloudinary.com/dish9tuwh/image/upload/w_600/f_auto/q_auto:best/v1677510121/mzus/4_wth2i6.webp
-                // `https://res.cloudinary.com/${account}/image/upload/w_${}/f_auto/q_auto:best/v${version}/${public_id}.${format}`
 
                 return <img
                     className={styles.image}
@@ -44,6 +41,8 @@ export const Gallery: React.FC<MyProps> = ({ data }) => {
 
             } else {
                 return <iframe
+                    frameBorder="0"
+                    className={styles.video}
                     key={idx}
                     width="560"
                     height="315"
