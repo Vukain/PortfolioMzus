@@ -72,7 +72,9 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
 
         // console.log(splitIntoChunks(3, data.content))
 
-        if (columns > 1 && window.matchMedia('(orientation: landscape)').matches) {
+        const isDesktop = window ? window.matchMedia('(orientation: landscape)').matches : true;
+
+        if (columns > 1 && isDesktop) {
             content = splitIntoChunks(columns, data.content).map((chunk, index) => {
 
                 const column = chunk.map((item: ImageOrVideo, index: number) => {
