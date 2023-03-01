@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
@@ -10,7 +11,7 @@ type ButtonData = { name: string, url: string };
 export const Navigation: React.FC = () => {
 
     const pathname = usePathname();
-    console.log(pathname)
+    // console.log(window.matchMedia('(orientation: landscape)').matches);
 
     const buttonsData: ButtonData[] = [{ name: 'concept', url: '/' }, { name: 'digital', url: '/digital' }, { name: 'animation', url: '/animation' }];
 

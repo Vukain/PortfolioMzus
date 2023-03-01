@@ -1,3 +1,5 @@
+"use client";
+
 import { clsx } from 'clsx';
 
 import styles from './Gallery.module.sass';
@@ -70,27 +72,31 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
 
         // console.log(splitIntoChunks(3, data.content))
 
-        content = splitIntoChunks(columns, data.content).map((chunk, index) => {
+        if (columns > 1 && window.matchMedia('(orientation: landscape)').matches) {
+            content = splitIntoChunks(columns, data.content).map((chunk, index) => {
 
-            const column = chunk.map((item: ImageOrVideo, index: number) => {
+                const column = chunk.map((item: ImageOrVideo, index: number) => {
+                    if (determineImagesOrVideos(item)) {
+                        return generateImage(item, index);
+                    } else {
+                        return generateVideo(item, index);
+                    }
+                });
+
+                return <div key={index} className={styles.masonry_column}>{column}</div>
+
+            })
+        } else {
+            content = data.content.map((item: ImageOrVideo, index: number) => {
                 if (determineImagesOrVideos(item)) {
                     return generateImage(item, index);
                 } else {
                     return generateVideo(item, index);
                 }
             });
+        }
 
-            return <div key={index} className={styles.masonry_column}>{column}</div>
 
-        })
-
-        // content = data.content.map((item: ImageOrVideo, index: number) => {
-        //     if (determineImagesOrVideos(item)) {
-        //         return generateImage(item, index);
-        //     } else {
-        //         // return generateVideo(item, index);
-        //     }
-        // });
     } else {
         content = 'no content to display';
     };
