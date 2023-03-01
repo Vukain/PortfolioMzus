@@ -28,7 +28,7 @@ const Animation = async () => {
                 />
             </Head>
             <main>
-                <Gallery data={fetchedEntries.animations} />
+                <Gallery data={fetchedEntries.animations} columns={2} />
             </main>
         </>
     )

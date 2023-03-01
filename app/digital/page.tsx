@@ -18,7 +18,7 @@ const Digital = async () => {
 
     return (
         <main>
-            <Gallery data={fetchedEntries.digital} />
+            <Gallery data={fetchedEntries.digital} columns={4} />
         </main>
     )
 }
