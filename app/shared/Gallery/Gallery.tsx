@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { clsx } from 'clsx';
 
 import styles from './Gallery.module.sass';
@@ -7,10 +8,32 @@ import styles from './Gallery.module.sass';
 type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string, format: string, version: number, public_id: string }> } };
 type CloudinaryVideo = { fields: { title: string, link: string } };
 type ImageOrVideo = CloudinaryImage | CloudinaryVideo;
-
 type MyProps = { data: { title: string, content: Array<ImageOrVideo> }, columns?: number }
 
 export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
+
+
+    const [isMasonryEnabled, setIsMasonryEnabled] = useState(true);
+    const isDesktopRef: React.MutableRefObject<boolean> = useRef(true);
+
+    const useConditionalLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+    useConditionalLayoutEffect(() => {
+        handleLayoutChange();
+
+        window.addEventListener('resize', handleLayoutChange);
+        return () => window.removeEventListener('resize', handleLayoutChange);
+    }, [])
+
+    const handleLayoutChange = () => {
+        if (window.matchMedia('(orientation: landscape)').matches && !isDesktopRef.current) {
+            isDesktopRef.current = true;
+            setIsMasonryEnabled(true);
+        } else if (window.matchMedia('(orientation: portrait)').matches && isDesktopRef.current) {
+            isDesktopRef.current = false;
+            setIsMasonryEnabled(false);
+        };
+    };
 
     const determineImagesOrVideos = (toBeDetermined: ImageOrVideo): toBeDetermined is CloudinaryImage => {
         if ((toBeDetermined as CloudinaryImage).fields.cloudinary_image) {
@@ -43,7 +66,7 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
         const account = getAccount ? getAccount[1] : null;
 
         return <img
-            className={clsx(styles.image, styles['image--masonry'])}
+            className={styles.image}
             key={index}
             loading='lazy'
             srcSet={`https://res.cloudinary.com/${account}/image/upload/w_${800}/f_auto/q_auto:best/v${version}/${public_id}.${format} 800w,
@@ -71,13 +94,13 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
     if (data.content.length > 0) {
 
         // console.log(typeof window !== "undefined")
-        let isDesktop: boolean = false;
-        if (typeof window !== "undefined" && window.matchMedia('(orientation: landscape)').matches) {
-            isDesktop = true
-        };
+        // let isDesktop: boolean = false;
+        // if (typeof window !== "undefined" && window.matchMedia('(orientation: landscape)').matches) {
+        //     isDesktop = true
+        // };
         // const isDesktop = typeof window !== "undefined" ? false : true;
 
-        if (columns > 1 && isDesktop) {
+        if (columns > 1 && isMasonryEnabled) {
             content = splitIntoChunks(columns, data.content).map((chunk, index) => {
 
                 const column = chunk.map((item: ImageOrVideo, index: number) => {
@@ -99,9 +122,7 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
                     return generateVideo(item, index);
                 }
             });
-        }
-
-
+        };
     } else {
         content = 'no content to display';
     };
