@@ -128,7 +128,6 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
     };
 
     return (
-
         <section className={styles.gallery}>
             {content}
         </section>

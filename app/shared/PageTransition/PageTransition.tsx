@@ -9,7 +9,7 @@ import styles from './PageTransition.module.sass';
 
 type Children = {
     children: React.ReactNode;
-};
+}
 
 export const PageTransition = ({ children }: Children) => {
 
