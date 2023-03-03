@@ -27,9 +27,9 @@ export default function RootLayout({
       </head> */}
       <body>
         <Navigation />
-        <PageTransition>
-          {children}
-        </PageTransition>
+        {/* <PageTransition> */}
+        {children}
+        {/* </PageTransition> */}
       </body>
     </html>
   )
