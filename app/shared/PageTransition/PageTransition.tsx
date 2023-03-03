@@ -1,6 +1,11 @@
 "use client";
 
+import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
+
 import { motion, AnimatePresence } from 'framer-motion';
+
+import styles from './PageTransition.module.sass';
 
 type Children = {
     children: React.ReactNode;
@@ -8,32 +13,43 @@ type Children = {
 
 export const PageTransition = ({ children }: Children) => {
 
+    // const { pathname } = useRouter();
+    const pathname = usePathname();
+
     const variants = {
-        out: {
+        initial: {
             opacity: 0,
-            y: 40,
-            transition: {
-                duration: .7
-            }
+            y: 40
+        },
+        out: {
+            // opacity: 0,
+            // y: 40,
+            // transition: {
+            //     duration: .7
+            // }
         },
         in: {
             opacity: 1,
             y: 0,
             transition: {
-                duration: .7,
-                delay: 0.5
+                duration: .9,
+                delay: 0.3,
+                ease: 'easeInOut'
             }
         }
     };
 
-    return <div className="effect-1">
+    return <div className={styles.effect}>
         <AnimatePresence initial={true} mode='wait'>
-            <motion.div initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 15 }}
-                transition={{ delay: 0.25 }}>
+            <motion.div
+                className={styles.effect2}
+                key={pathname}
+                variants={variants}
+                animate="in"
+                initial="initial"
+                exit="out" >
                 {children}
             </motion.div>
         </AnimatePresence>
-    </div>
+    </div >
 };
