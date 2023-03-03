@@ -1,3 +1,3 @@
 # PortfolioMzus
 
-...work in progress.
+...early work in progress.
