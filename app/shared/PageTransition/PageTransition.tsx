@@ -23,11 +23,11 @@ export const PageTransition = ({ children }: Children) => {
             y: 40
         },
         out: {
-            // opacity: 0,
-            // y: 40,
-            // transition: {
-            //     duration: .7
-            // }
+            opacity: 0,
+            y: 40,
+            transition: {
+                duration: 0
+            }
         },
         in: {
             opacity: 1,
@@ -41,7 +41,7 @@ export const PageTransition = ({ children }: Children) => {
     };
 
     return <div className={styles.effect}>
-        <AnimatePresence initial={true} mode='sync'>
+        <AnimatePresence initial={false} mode='wait'>
             <motion.div
                 className={styles.effect2}
                 key={pathname}
