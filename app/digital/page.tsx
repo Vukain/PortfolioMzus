@@ -21,8 +21,8 @@ const Digital = async () => {
         <main>
             <Gallery data={fetchedEntries.digital} columns={4} />
         </main>
-    )
-}
+    );
+};
 
 export default Digital;
 

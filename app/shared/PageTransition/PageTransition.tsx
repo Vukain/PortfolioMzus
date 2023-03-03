@@ -15,40 +15,39 @@ export const PageTransition = ({ children }: Children) => {
 
     // const { pathname } = useRouter();
     const pathname = usePathname();
-    console.log(pathname)
+    // console.log(pathname)
 
     const variants = {
         initial: {
             opacity: 0,
-            y: 40
+            y: "3vh"
         },
         out: {
             opacity: 0,
-            y: 40,
+            y: "3vh",
             transition: {
-                duration: 0
+                duration: .6
             }
         },
         in: {
             opacity: 1,
             y: 0,
             transition: {
-                duration: .9,
-                delay: 0.3,
+                duration: .7,
+                delay: 0.4,
                 ease: 'easeInOut'
             }
         }
     };
 
-    return <div className={styles.effect}>
+    return <div className={styles.wrapper}>
         <AnimatePresence initial={true} mode='wait'>
             <motion.div
-                className={styles.effect2}
                 key={pathname}
                 variants={variants}
                 animate="in"
                 initial="initial"
-            // exit="out"
+                exit="out"
             >
                 {children}
             </motion.div>

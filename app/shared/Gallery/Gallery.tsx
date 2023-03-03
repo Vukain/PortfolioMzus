@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { clsx } from 'clsx';
-
+import { motion } from "framer-motion";
 
 import styles from './Gallery.module.sass';
 import { PageTransition } from '../PageTransition/PageTransition';
@@ -60,6 +60,32 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
         return newList;
     };
 
+    // const variants = {
+    //     hidden: { opacity: 1 },
+    //     show: {
+    //         opacity: 1,
+    //         transition: {
+    //             delay: .5,
+    //             staggerChildren: 0.3,
+    //             ease: 'easeInOut'
+    //         },
+    //     },
+    // };
+
+    // const images = {
+    //     hidden: {
+    //         opacity: 0,
+    //         y: 20,
+    //     },
+    //     show: {
+    //         opacity: 1,
+    //         y: 0,
+    //         transition: {
+    //             duration: .8,
+    //         },
+    //     },
+    // };
+
     const generateImage = (item: CloudinaryImage, index: number) => {
         const { url, format, version, public_id } = item.fields.cloudinary_image[0];
 
@@ -95,13 +121,6 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
 
     if (data.content.length > 0) {
 
-        // console.log(typeof window !== "undefined")
-        // let isDesktop: boolean = false;
-        // if (typeof window !== "undefined" && window.matchMedia('(orientation: landscape)').matches) {
-        //     isDesktop = true
-        // };
-        // const isDesktop = typeof window !== "undefined" ? false : true;
-
         if (columns > 1 && isMasonryEnabled) {
             content = splitIntoChunks(columns, data.content).map((chunk, index) => {
 
@@ -132,9 +151,9 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
     return (
 
         <PageTransition>
-            <section className={styles.gallery}>
+            <div className={styles.gallery}>
                 {content}
-            </section>
+            </div>
         </PageTransition>
     );
 }

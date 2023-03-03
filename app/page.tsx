@@ -30,8 +30,8 @@ const Home = async () => {
     <main className={styles.main}>
       <Gallery data={fetchedEntries.concepts} />
     </main>
-  )
-}
+  );
+};
 
 export default Home;
 
