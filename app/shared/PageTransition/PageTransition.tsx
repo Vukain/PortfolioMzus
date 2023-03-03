@@ -26,7 +26,7 @@ export const PageTransition = ({ children }: Children) => {
             opacity: 0,
             y: 40,
             transition: {
-                duration: 0
+                duration: .6
             }
         },
         in: {
