@@ -41,14 +41,14 @@ export const PageTransition = ({ children }: Children) => {
     };
 
     return <div className={styles.effect}>
-        <AnimatePresence initial={false} mode='wait'>
+        <AnimatePresence initial={true} mode='wait'>
             <motion.div
                 className={styles.effect2}
                 key={pathname}
                 variants={variants}
                 animate="in"
                 initial="initial"
-                exit="out"
+            // exit="out"
             >
                 {children}
             </motion.div>
