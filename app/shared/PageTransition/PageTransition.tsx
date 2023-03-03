@@ -22,11 +22,11 @@ export const PageTransition = ({ children }: Children) => {
             y: 40
         },
         out: {
-            // opacity: 0,
-            // y: 40,
-            // transition: {
-            //     duration: .7
-            // }
+            opacity: 0,
+            y: 40,
+            transition: {
+                duration: .7
+            }
         },
         in: {
             opacity: 1,
