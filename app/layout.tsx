@@ -1,7 +1,9 @@
 import 'normalize.css/normalize.css';
 import './globals.sass'
 
+
 import { Navigation } from './shared/Navigation/Navigation'
+import { PageTransition } from './shared/PageTransition/PageTransition'
 
 export const metadata = {
   title: 'Mzus - Portfolio',
@@ -23,7 +25,9 @@ export default function RootLayout({
       </head> */}
       <body>
         <Navigation />
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </body>
     </html>
   )

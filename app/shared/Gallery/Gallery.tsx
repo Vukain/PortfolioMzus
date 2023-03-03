@@ -12,9 +12,8 @@ type MyProps = { data: { title: string, content: Array<ImageOrVideo> }, columns?
 
 export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
 
-
     const [isMasonryEnabled, setIsMasonryEnabled] = useState(true);
-    const isDesktopRef: React.MutableRefObject<boolean> = useRef(true);
+    const isDesktopRef = useRef(true);
 
     const useConditionalLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
@@ -69,12 +68,13 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
             className={styles.image}
             key={index}
             loading='lazy'
-            srcSet={`https://res.cloudinary.com/${account}/image/upload/w_${800}/f_auto/q_auto:best/v${version}/${public_id}.${format} 800w,
-                        https://res.cloudinary.com/${account}/image/upload/w_${1200}/f_auto/q_auto:best/v${version}/${public_id}.${format} 1200w, 
-                        https://res.cloudinary.com/${account}/image/upload/w_${1600}/f_auto/q_auto:best/v${version}/${public_id}.${format} 1600w, 
-                        https://res.cloudinary.com/${account}/image/upload/w_${2000}/f_auto/q_auto:best/v${version}/${public_id}.${format} 2000w`}
+            srcSet={`https://res.cloudinary.com/${account}/image/upload/w_${600}/f_auto/q_auto:best/v${version}/${public_id}.${format} 600w,
+                    https://res.cloudinary.com/${account}/image/upload/w_${800}/f_auto/q_auto:best/v${version}/${public_id}.${format} 800w,
+                    https://res.cloudinary.com/${account}/image/upload/w_${1200}/f_auto/q_auto:best/v${version}/${public_id}.${format} 1200w, 
+                    https://res.cloudinary.com/${account}/image/upload/w_${1600}/f_auto/q_auto:best/v${version}/${public_id}.${format} 1600w, 
+                    https://res.cloudinary.com/${account}/image/upload/w_${2000}/f_auto/q_auto:best/v${version}/${public_id}.${format} 2000w`}
             src={`https://res.cloudinary.com/${account}/image/upload/f_auto/q_auto:best/v${version}/${public_id}.${format}`}
-            sizes={'40vw'}
+            sizes={'(orientation: portrait) 90vw, 30vw'}
             alt={item.fields.title} />
     };
 
