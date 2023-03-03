@@ -3,9 +3,7 @@
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { clsx } from 'clsx';
 
-
 import styles from './Gallery.module.sass';
-import { PageTransition } from '../PageTransition/PageTransition';
 
 type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string, format: string, version: number, public_id: string }> } };
 type CloudinaryVideo = { fields: { title: string, link: string } };
@@ -131,10 +129,8 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
 
     return (
 
-        <PageTransition>
-            <section className={styles.gallery}>
-                {content}
-            </section>
-        </PageTransition>
+        <section className={styles.gallery}>
+            {content}
+        </section>
     );
 }

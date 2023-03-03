@@ -1,3 +1,4 @@
+
 import { Gallery } from '../shared/Gallery/Gallery';
 import { fetchEntries } from '../utils/fetchData'
 

@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.sass'
@@ -26,11 +27,9 @@ const Home = async () => {
   const fetchedEntries = await fetchEntries() as fetchedData;
 
   return (
-    <>
-      <main className={styles.main}>
-        <Gallery data={fetchedEntries.concepts} />
-      </main>
-    </>
+    <main className={styles.main}>
+      <Gallery data={fetchedEntries.concepts} />
+    </main>
   )
 }
 

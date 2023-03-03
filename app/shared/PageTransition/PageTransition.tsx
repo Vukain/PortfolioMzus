@@ -15,6 +15,7 @@ export const PageTransition = ({ children }: Children) => {
 
     // const { pathname } = useRouter();
     const pathname = usePathname();
+    console.log(pathname)
 
     const variants = {
         initial: {
@@ -25,7 +26,7 @@ export const PageTransition = ({ children }: Children) => {
             opacity: 0,
             y: 40,
             transition: {
-                duration: .7
+                duration: 0
             }
         },
         in: {
@@ -40,14 +41,15 @@ export const PageTransition = ({ children }: Children) => {
     };
 
     return <div className={styles.effect}>
-        <AnimatePresence initial={true} mode='wait'>
+        <AnimatePresence initial={true} mode='sync'>
             <motion.div
                 className={styles.effect2}
                 key={pathname}
                 variants={variants}
                 animate="in"
                 initial="initial"
-                exit="out" >
+                exit="out"
+            >
                 {children}
             </motion.div>
         </AnimatePresence>
