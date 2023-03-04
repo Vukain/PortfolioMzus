@@ -23,9 +23,26 @@
         width: 100%
         flex-grow: 0
 
-.image
+.wrapper
     border-radius: 1vh
     width: 100%
+    // font-size: 0
+    // height: 100%
+    overflow: hidden
+    cursor: pointer
+    transition: scale 1.55s ease-in-out
+    object-fit: cover
+    &:hover
+        scale: .95
+        & .image
+            scale: 1.1
+
+.image
+    // border-radius: 1vh
+    display: block
+    width: 100%
+    transition: scale 1.55s ease-in-out
+    transform-origin: 40% 55%
 
 .video
     outline: none

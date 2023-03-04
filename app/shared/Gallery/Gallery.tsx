@@ -92,18 +92,19 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
         const getAccount = url.match('.com/(.*)/image');
         const account = getAccount ? getAccount[1] : null;
 
-        return <img
-            className={styles.image}
-            key={index}
-            loading='lazy'
-            srcSet={`https://res.cloudinary.com/${account}/image/upload/w_${600}/f_auto/q_auto:best/v${version}/${public_id}.${format} 600w,
+        return <div className={styles.wrapper} key={index}>
+            <img
+                className={styles.image}
+                loading='lazy'
+                srcSet={`https://res.cloudinary.com/${account}/image/upload/w_${600}/f_auto/q_auto:best/v${version}/${public_id}.${format} 600w,
                     https://res.cloudinary.com/${account}/image/upload/w_${800}/f_auto/q_auto:best/v${version}/${public_id}.${format} 800w,
                     https://res.cloudinary.com/${account}/image/upload/w_${1200}/f_auto/q_auto:best/v${version}/${public_id}.${format} 1200w, 
                     https://res.cloudinary.com/${account}/image/upload/w_${1600}/f_auto/q_auto:best/v${version}/${public_id}.${format} 1600w, 
                     https://res.cloudinary.com/${account}/image/upload/w_${2000}/f_auto/q_auto:best/v${version}/${public_id}.${format} 2000w`}
-            src={`https://res.cloudinary.com/${account}/image/upload/f_auto/q_auto:best/v${version}/${public_id}.${format}`}
-            sizes={'(orientation: portrait) 90vw, 30vw'}
-            alt={item.fields.title} />
+                src={`https://res.cloudinary.com/${account}/image/upload/f_auto/q_auto:best/v${version}/${public_id}.${format}`}
+                sizes={'(orientation: portrait) 90vw, 30vw'}
+                alt={item.fields.title} />
+        </div>
     };
 
     const generateVideo = (item: CloudinaryVideo, index: number) => {
