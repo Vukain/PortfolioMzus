@@ -1,22 +1,11 @@
 import Head from 'next/head'
 
-import { Gallery } from '../shared/Gallery/Gallery';
+import { VideoGallery } from '../shared/VideoGallery/VideoGallery';
 import { fetchEntries } from '../utils/fetchData'
-
-type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string }> } };
-type CloudinaryVideo = { fields: { title: string, link: string } };
-type ContentfulImages = { title: string, content: Array<CloudinaryImage> };
-type ContentfulVideos = { title: string, content: Array<CloudinaryVideo> };
-
-type fetchedData = {
-    concepts: ContentfulImages,
-    digital: ContentfulImages,
-    animations: ContentfulVideos
-};
 
 const Animation = async () => {
 
-    const fetchedEntries = await fetchEntries() as fetchedData;
+    const fetchedEntries = await fetchEntries() as FetchedData;
 
     return (
         <>
@@ -28,7 +17,7 @@ const Animation = async () => {
                 />
             </Head>
             <main>
-                <Gallery data={fetchedEntries.animations} columns={2} />
+                <VideoGallery videos={fetchedEntries.animations} />
             </main>
         </>
     )

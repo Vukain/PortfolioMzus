@@ -4,17 +4,23 @@ import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { clsx } from 'clsx';
 import { motion } from "framer-motion";
 
-import styles from './Gallery.module.sass';
+import styles from './ImageGallery.module.sass';
+
+import { determineImageOrVideo } from '@/app/utils/determineImageOrVIdeo';
+
 import { PageTransition } from '../PageTransition/PageTransition';
+import { Carousel } from '../Carousel/Carousel';
 
-type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string, format: string, version: number, public_id: string }> } };
-type CloudinaryVideo = { fields: { title: string, link: string } };
-type ImageOrVideo = CloudinaryImage | CloudinaryVideo;
-type MyProps = { data: { title: string, content: Array<ImageOrVideo> }, columns?: number }
+type ChunkedImages = { initialIndex: number, element: CloudinaryImage };
 
-export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
+type MyProps = { images: ContentfulImages, columns?: number }
 
+export const ImageGallery: React.FC<MyProps> = ({ images, columns = 3 }) => {
+
+    const [currentImage, setCurrentImage] = useState(0);
+    const [showCarousel, setShowCarousel] = useState(false);
     const [isMasonryEnabled, setIsMasonryEnabled] = useState(true);
+
     const isDesktopRef = useRef(true);
 
     const useConditionalLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -36,22 +42,15 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
         };
     };
 
-    const determineImagesOrVideos = (toBeDetermined: ImageOrVideo): toBeDetermined is CloudinaryImage => {
-        if ((toBeDetermined as CloudinaryImage).fields.cloudinary_image) {
-            return true;
-        };
-        return false;
-    };
-
-    const splitIntoChunks = (chunks: number, initialList: ImageOrVideo[]) => {
-        const newList: Array<ImageOrVideo[]> = [];
+    const splitIntoChunks = (chunks: number, initialList: CloudinaryImage[]) => {
+        const newList: Array<ChunkedImages[]> = [];
 
         for (let i = 0; i < chunks; i++) {
 
-            const partialList: ImageOrVideo[] = [];
+            const partialList: ChunkedImages[] = [];
 
             for (let j = i; j < initialList.length; j = j + chunks) {
-                partialList.push(initialList[j]);
+                partialList.push({ initialIndex: j, element: initialList[j] });
             };
 
             newList.push(partialList);
@@ -86,13 +85,19 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
     //     },
     // };
 
+    const onClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
+        // console.log(index);
+        setCurrentImage(index);
+        setShowCarousel(true);
+    };
+
     const generateImage = (item: CloudinaryImage, index: number) => {
         const { url, format, version, public_id } = item.fields.cloudinary_image[0];
 
         const getAccount = url.match('.com/(.*)/image');
         const account = getAccount ? getAccount[1] : null;
 
-        return <div className={styles.wrapper} key={index}>
+        return <div className={styles.wrapper} key={index} onClick={(e) => onClickHandler(e, index)}>
             <img
                 className={styles.image}
                 loading='lazy'
@@ -107,54 +112,45 @@ export const Gallery: React.FC<MyProps> = ({ data, columns = 3 }) => {
         </div>
     };
 
-    const generateVideo = (item: CloudinaryVideo, index: number) => {
-        return <iframe
-            frameBorder="0"
-            className={styles.video}
-            key={index}
-            src={`${item.fields.link}`}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen;"
-        />
-    }
+    const carouselImages = images.content.filter((item) => {
+        return determineImageOrVideo(item);
+    });
 
     let content;
 
-    if (data.content.length > 0) {
+    if (images.content.length > 0) {
 
         if (columns > 1 && isMasonryEnabled) {
-            content = splitIntoChunks(columns, data.content).map((chunk, index) => {
+            content = splitIntoChunks(columns, images.content).map((chunk, index) => {
 
-                const column = chunk.map((item: ImageOrVideo, index: number) => {
-                    if (determineImagesOrVideos(item)) {
-                        return generateImage(item, index);
-                    } else {
-                        return generateVideo(item, index);
-                    }
+                const column = chunk.map((item: ChunkedImages) => {
+                    if (determineImageOrVideo(item.element)) {
+                        return generateImage(item.element, item.initialIndex);
+                    };
                 });
 
                 return <div key={index} className={styles.masonry_column}>{column}</div>
 
             })
         } else {
-            content = data.content.map((item: ImageOrVideo, index: number) => {
-                if (determineImagesOrVideos(item)) {
+            content = images.content.map((item: ImageOrVideo, index: number) => {
+                if (determineImageOrVideo(item)) {
                     return generateImage(item, index);
-                } else {
-                    return generateVideo(item, index);
                 }
             });
         };
     } else {
-        content = 'no content to display';
+        content = 'No content to display!';
     };
 
     return (
-
-        <PageTransition>
-            <div className={styles.gallery}>
-                {content}
-            </div>
-        </PageTransition>
+        <>
+            <PageTransition>
+                <div className={styles.gallery}>
+                    {content}
+                </div>
+            </PageTransition>
+            {showCarousel && <Carousel images={carouselImages} currentImage={currentImage} setCurrentImage={setCurrentImage} setShowCarousel={setShowCarousel} />}
+        </>
     );
 }

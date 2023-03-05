@@ -1,0 +1,113 @@
+@import '../../styles/mixins'
+
+.carousel
+    position: fixed
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+    background-color: #000000e0
+    backdrop-filter: blur(2vh)
+
+    overflow: hidden
+    // visibility: hidden
+    // opacity: 0
+    z-index: 9999
+
+.slider
+    position: relative
+    display: flex
+    transition: transform .7s ease-in-out
+
+.wrapper
+    width: 100vw
+    height: 100vh
+    flex-shrink: 0
+    display: flex
+    justify-content: center
+    align-items: center
+
+.image
+    position: relative
+    height: 80%
+
+.controls
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+
+.next, .previous, .close
+    height: 4vh
+    width: 4vh
+    position: absolute
+    z-index: 9999
+
+%icon
+    width: 100%
+    height: 100%
+    transition: scale .2s ease-in-out
+    cursor: pointer
+    &::before
+        @include before-after
+        top: 0
+        left: 0
+        width: 100%
+        height: 25%
+        border-radius: 5px 5px 0 0
+        background-color: #777
+        transition: background-color .4s ease-in-out
+    &::after
+        @extend ::before
+        width: 25%
+        height: 100%
+        border-radius: 5px 0 0 5px
+    &:hover, &:active
+        &::before, &::after
+            background-color: var(--main-color)
+    &:hover
+        filter: drop-shadow(4px -4px 4px rgba(0, 0, 0, 0.4))
+        scale: 1.2
+    &:active
+        filter: drop-shadow(3px -3px 3px rgba(0, 0, 0, 0.5))
+        scale: 1.1
+        transition: scale .1s ease-in-out
+
+.next
+    top: 50%
+    right: 5%
+    transform: translateY(-50%)
+    &_icon
+        @extend %icon
+        rotate: 135deg
+        translate: -15%
+
+.previous
+    @extend .next
+    left: 5%
+    &_icon
+        @extend %icon
+        rotate: -45deg
+        translate: 15%
+
+.close
+    top: 5%
+    right: 5%
+    height: 5.2vh
+    width: 5.2vh
+    &_icon
+        @extend %icon
+        translate: 12% -12%
+        &::before
+            top: 50%
+            left: 0
+            width: 100%
+            height: 19%
+            border-radius: 0 5px 0 5px
+            translate: 0 -50%
+            rotate: -45deg
+        &::after
+            @extend ::before
+            border-radius: 5px 0 5px 0
+            rotate: 45deg

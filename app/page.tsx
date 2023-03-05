@@ -7,28 +7,15 @@ import styles from './page.module.sass'
 
 import { fetchEntries } from './utils/fetchData'
 import { NextPage } from 'next'
-import { Gallery } from './shared/Gallery/Gallery'
-
-// const inter = Inter({ subsets: ['latin'] })
-
-type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string, format: string, version: number, public_id: string, }> } };
-type CloudinaryVideo = { fields: { title: string, link: string } };
-type ContentfulImages = { title: string, content: Array<CloudinaryImage> };
-type ContentfulVideos = { title: string, content: Array<CloudinaryVideo> };
-
-type fetchedData = {
-  concepts: ContentfulImages,
-  digital: ContentfulImages,
-  animations: ContentfulVideos
-};
+import { ImageGallery } from './shared/ImageGallery/ImageGallery';
 
 const Home = async () => {
 
-  const fetchedEntries = await fetchEntries() as fetchedData;
+  const fetchedEntries = await fetchEntries() as FetchedData;
 
   return (
     <main className={styles.main}>
-      <Gallery data={fetchedEntries.concepts} />
+      <ImageGallery images={fetchedEntries.concepts} />
     </main>
   );
 };
