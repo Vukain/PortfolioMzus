@@ -8,7 +8,6 @@
     left: 0
     background-color: #000000e0
     backdrop-filter: blur(2vh)
-
     overflow: hidden
     // visibility: hidden
     // opacity: 0
@@ -17,7 +16,9 @@
 .slider
     position: relative
     display: flex
-    transition: transform .7s ease-in-out
+    gap: 10vw
+    @media not screen and (prefers-reduced-motion: reduce)
+        transition: transform .7s ease-in-out
 
 .wrapper
     width: 100vw
@@ -30,6 +31,10 @@
 .image
     position: relative
     height: 80%
+    @media (orientation: portrait) and (max-width: 600px)
+        width: 100%
+        height: 100%
+        object-fit: contain
 
 .controls
     position: absolute
@@ -47,7 +52,8 @@
 %icon
     width: 100%
     height: 100%
-    transition: scale .2s ease-in-out
+    transition: scale .2s ease-in-out, filter .2s
+    filter: drop-shadow(0 0 0 transparent)
     cursor: pointer
     &::before
         @include before-after
@@ -90,6 +96,10 @@
         @extend %icon
         rotate: -45deg
         translate: 15%
+        &:hover
+            filter: drop-shadow(-4px 4px 4px rgba(0, 0, 0, 0.4))
+        &:active
+            filter: drop-shadow(-3px 3px 3px rgba(0, 0, 0, 0.5))
 
 .close
     top: 5%
@@ -104,10 +114,14 @@
             left: 0
             width: 100%
             height: 19%
-            border-radius: 0 5px 0 5px
+            border-radius: 5px 0 5px 0
             translate: 0 -50%
             rotate: -45deg
         &::after
             @extend ::before
             border-radius: 5px 0 5px 0
             rotate: 45deg
+        &:hover
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.4))
+        &:active
+            filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.5))

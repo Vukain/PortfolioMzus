@@ -3,19 +3,19 @@
 import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion, MotionConfig } from 'framer-motion';
 
 import styles from './PageTransition.module.sass';
 
 type Children = {
     children: React.ReactNode;
-}
+};
 
 export const PageTransition = ({ children }: Children) => {
 
     // const { pathname } = useRouter();
     const pathname = usePathname();
-    // console.log(pathname)
+    // const prefersReducedMotion = useReducedMotion()
 
     const variants = {
         initial: {
@@ -41,16 +41,18 @@ export const PageTransition = ({ children }: Children) => {
     };
 
     return <div className={styles.wrapper}>
-        <AnimatePresence initial={true} mode='wait'>
-            <motion.div
-                key={pathname}
-                variants={variants}
-                animate="in"
-                initial="initial"
-                exit="out"
-            >
-                {children}
-            </motion.div>
-        </AnimatePresence>
+        <MotionConfig reducedMotion={"user"}>
+            <AnimatePresence initial={true} mode='wait' >
+                <motion.div
+                    key={pathname}
+                    variants={variants}
+                    animate="in"
+                    initial="initial"
+                    exit="out"
+                >
+                    {children}
+                </motion.div>
+            </AnimatePresence>
+        </MotionConfig>
     </div >
 };

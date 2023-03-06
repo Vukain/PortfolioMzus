@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { clsx } from 'clsx';
-import { motion } from "framer-motion";
 
 import styles from './ImageGallery.module.sass';
 

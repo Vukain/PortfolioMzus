@@ -47,7 +47,7 @@ export const Carousel: React.FC<MyProps> = ({ images, currentImage, setCurrentIm
 
     return (
         <article className={styles.carousel}>
-            <div className={styles.slider} style={{ transform: `translateX(${-currentImage * 100}vw)` }}>
+            <div className={styles.slider} style={{ transform: `translateX(${-currentImage * 110}vw)` }}>
                 {carouselImages}
             </div>
             <div className={styles.controls}>
