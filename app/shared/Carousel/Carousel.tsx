@@ -37,7 +37,7 @@ export const Carousel: React.FC<MyProps> = ({ images, currentImage, setCurrentIm
         const account = getAccount ? getAccount[1] : null;
 
         return <div className={styles.wrapper} key={index}>
-            <img onClick={() => { setCurrentImage(currentImage + 1) }}
+            <img
                 className={styles.image}
                 loading='eager'
                 src={`${url}`}
@@ -50,17 +50,16 @@ export const Carousel: React.FC<MyProps> = ({ images, currentImage, setCurrentIm
             <div className={styles.slider} style={{ transform: `translateX(${-currentImage * 110}vw)` }}>
                 {carouselImages}
             </div>
-            <div className={styles.controls}>
-                <div className={styles.next} >
-                    <figure className={styles.next_icon} onClick={() => { carouselControl('forward') }} />
-                </div>
-                <div className={styles.previous} >
-                    <figure className={styles.previous_icon} onClick={() => { carouselControl('backward') }} />
-                </div>
-                <div className={styles.close}>
-                    <figure className={styles.close_icon} onClick={() => { carouselControl('close') }} />
-                </div>
-            </div>
+            <button className={styles.next} onClick={() => { carouselControl('forward') }} disabled={currentImage + 1 === images.length}>
+                <figure className={styles.next_icon} />
+            </button>
+            <button className={styles.previous} onClick={() => { carouselControl('backward') }} disabled={currentImage === 0}>
+                <figure className={styles.previous_icon} />
+            </button>
+            <button className={styles.close} onClick={() => { carouselControl('close') }}>
+                <figure className={styles.close_icon} />
+            </button>
+            <div className={styles.counter}> {currentImage + 1}/{images.length}</div>
         </article>
     );
 };

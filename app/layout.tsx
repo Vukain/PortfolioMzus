@@ -3,12 +3,15 @@ import './globals.sass'
 
 import { Navigation } from './shared/Navigation/Navigation'
 import { PageTransition } from './shared/PageTransition/PageTransition'
-
+import { Lato } from 'next/font/google'
 
 export const metadata = {
   title: 'Mzus - Portfolio',
   description: 'Mzus - Portfolio...',
+
 };
+
+const lato = Lato({ weight: ['300', '400', '700'], subsets: ['latin'] })
 
 export default function RootLayout({
   children,
@@ -24,8 +27,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head> */}
 
-      <body>
-
+      <body className={lato.className}>
         <Navigation />
         {/* <PageTransition> */}
         {children}
