@@ -8,7 +8,7 @@ import styles from './ImageGallery.module.sass';
 import { determineImageOrVideo } from '@/app/utils/determineImageOrVIdeo';
 
 import { PageTransition } from '../PageTransition/PageTransition';
-import { Carousel } from '../Carousel/Carousel';
+import { InfiniteCarousel } from '../InfiniteCarousel/InfiniteCarousel';
 
 type ChunkedImages = { initialIndex: number, element: CloudinaryImage };
 
@@ -17,6 +17,7 @@ type MyProps = { images: ContentfulImages, columns?: number }
 export const ImageGallery: React.FC<MyProps> = ({ images, columns = 3 }) => {
 
     const [currentImage, setCurrentImage] = useState(0);
+
     const [showCarousel, setShowCarousel] = useState(false);
     const [isMasonryEnabled, setIsMasonryEnabled] = useState(true);
 
@@ -149,7 +150,7 @@ export const ImageGallery: React.FC<MyProps> = ({ images, columns = 3 }) => {
                     {content}
                 </div>
             </PageTransition>
-            {showCarousel && <Carousel images={carouselImages} currentImage={currentImage} setCurrentImage={setCurrentImage} setShowCarousel={setShowCarousel} />}
+            {showCarousel && <InfiniteCarousel images={carouselImages} currentImage={currentImage} setCurrentImage={setCurrentImage} setShowCarousel={setShowCarousel} />}
         </>
     );
 }

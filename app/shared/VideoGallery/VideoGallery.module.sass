@@ -1,14 +1,7 @@
+@import '../../styles/mixins'
+
 .gallery
-    width: 100vw
-    display: flex
-    flex-wrap: wrap
-    gap: 5vh
-    padding: 10vh
-    justify-content: center
-    align-items: flex-start
-    @media (orientation: portrait) and (max-width: 600px)
-        padding: 10vw
-        flex-direction: column
+    @include gallery
 
 .video
     outline: none
