@@ -8,9 +8,10 @@
     position: fixed
     z-index: 999
     backdrop-filter: blur(2vh)
-    background-color: #ffffff05
+    background-color: #33333b36
     font-size: 1.6vw
-    // align-items: center
+    @media(orientation: portrait)
+        font-size: 3vw
 
 .link
     all: unset
@@ -19,16 +20,17 @@
     align-items: center
     justify-content: center
     flex-grow: 0
-    color: #fff
+    color: #e6ddeb
     padding: 0 1vw
     text-transform: uppercase
-    transition: flex-grow 1.55s .1s ease-in-out, background-color .5s
+    transition: flex-grow 1.55s .1s ease-in-out, background-color .5s, color .5s
     &:hover
-        background-color: #575757
+        background-color: var(--accent-color)
 
 .active
-    background-color: #383838
+    background-color: var(--background-color-secondary)
     flex-grow: 1
+    color: var(--main-color)
 
 // .text
 //     width: 100%
