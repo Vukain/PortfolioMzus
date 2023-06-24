@@ -6,15 +6,13 @@ import { clsx } from 'clsx';
 import styles from './ImageGallery.module.sass';
 
 import { determineImageOrVideo } from '@/app/utils/determineImageOrVIdeo';
-
+import { splitIntoChunks } from '@/app/utils/splitIntoChunks';
 import { PageTransition } from '../PageTransition/PageTransition';
-import { InfiniteCarousel } from '../InfiniteCarousel/InfiniteCarousel';
+import { InfiniteCarousel } from '../Carousel/InfiniteCarousel/InfiniteCarousel';
 
-type ChunkedImages = { initialIndex: number, element: CloudinaryImage };
+type Props = { images: ContentfulImages, columns?: number }
 
-type MyProps = { images: ContentfulImages, columns?: number }
-
-export const ImageGallery: React.FC<MyProps> = ({ images, columns = 3 }) => {
+export const ImageGallery: React.FC<Props> = ({ images, columns = 3 }) => {
 
     const [currentImage, setCurrentImage] = useState(0);
 
@@ -42,51 +40,7 @@ export const ImageGallery: React.FC<MyProps> = ({ images, columns = 3 }) => {
         };
     };
 
-    const splitIntoChunks = (chunks: number, initialList: CloudinaryImage[]) => {
-        const newList: Array<ChunkedImages[]> = [];
-
-        for (let i = 0; i < chunks; i++) {
-
-            const partialList: ChunkedImages[] = [];
-
-            for (let j = i; j < initialList.length; j = j + chunks) {
-                partialList.push({ initialIndex: j, element: initialList[j] });
-            };
-
-            newList.push(partialList);
-        };
-
-        return newList;
-    };
-
-    // const variants = {
-    //     hidden: { opacity: 1 },
-    //     show: {
-    //         opacity: 1,
-    //         transition: {
-    //             delay: .5,
-    //             staggerChildren: 0.3,
-    //             ease: 'easeInOut'
-    //         },
-    //     },
-    // };
-
-    // const images = {
-    //     hidden: {
-    //         opacity: 0,
-    //         y: 20,
-    //     },
-    //     show: {
-    //         opacity: 1,
-    //         y: 0,
-    //         transition: {
-    //             duration: .8,
-    //         },
-    //     },
-    // };
-
     const onClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
-        // console.log(index);
         setCurrentImage(index);
         setShowCarousel(true);
     };
@@ -112,42 +66,42 @@ export const ImageGallery: React.FC<MyProps> = ({ images, columns = 3 }) => {
         </div>
     };
 
+    const generateContent = () => {
+        if (images.content.length > 0) {
+
+            if (columns > 1 && isMasonryEnabled) {
+                return splitIntoChunks(columns, images.content).map((chunk, index) => {
+
+                    const column = chunk.map((item: ChunkedImages) => {
+                        if (determineImageOrVideo(item.element)) {
+                            return generateImage(item.element, item.initialIndex);
+                        };
+                    });
+
+                    return <div key={index} className={styles.masonry_column}>{column}</div>
+
+                })
+            } else {
+                return images.content.map((item: ImageOrVideo, index: number) => {
+                    if (determineImageOrVideo(item)) {
+                        return generateImage(item, index);
+                    }
+                });
+            };
+        } else {
+            return 'No content to display!';
+        };
+    };
+
     const carouselImages = images.content.filter((item) => {
         return determineImageOrVideo(item);
     });
-
-    let content;
-
-    if (images.content.length > 0) {
-
-        if (columns > 1 && isMasonryEnabled) {
-            content = splitIntoChunks(columns, images.content).map((chunk, index) => {
-
-                const column = chunk.map((item: ChunkedImages) => {
-                    if (determineImageOrVideo(item.element)) {
-                        return generateImage(item.element, item.initialIndex);
-                    };
-                });
-
-                return <div key={index} className={styles.masonry_column}>{column}</div>
-
-            })
-        } else {
-            content = images.content.map((item: ImageOrVideo, index: number) => {
-                if (determineImageOrVideo(item)) {
-                    return generateImage(item, index);
-                }
-            });
-        };
-    } else {
-        content = 'No content to display!';
-    };
 
     return (
         <>
             <PageTransition>
                 <div className={styles.gallery}>
-                    {content}
+                    {generateContent()}
                 </div>
             </PageTransition>
             {showCarousel && <InfiniteCarousel images={carouselImages} currentImage={currentImage} setCurrentImage={setCurrentImage} setShowCarousel={setShowCarousel} />}

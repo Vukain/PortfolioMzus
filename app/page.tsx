@@ -3,8 +3,6 @@ import Image from 'next/image'
 
 import styles from './page.module.sass'
 
-// const inter = Inter({ subsets: ['latin'] })
-
 import { fetchEntries } from './utils/fetchData'
 import { NextPage } from 'next'
 import { ImageGallery } from './shared/ImageGallery/ImageGallery';

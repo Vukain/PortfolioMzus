@@ -2,17 +2,17 @@
 import { ImageGallery } from '../shared/ImageGallery/ImageGallery';
 import { fetchEntries } from '../utils/fetchData'
 
-const Digital = async () => {
+const Design = async () => {
 
     const fetchedEntries = await fetchEntries() as FetchedData;
 
     return (
         <main>
-            <ImageGallery images={fetchedEntries.digital} columns={3} />
+            <ImageGallery images={fetchedEntries.digital} columns={5} />
         </main>
     );
 };
 
-export default Digital;
+export default Design;
 
 export const revalidate = 900;

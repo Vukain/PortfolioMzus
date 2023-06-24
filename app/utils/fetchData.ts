@@ -9,8 +9,6 @@ const client = contentful.createClient({
     accessToken: accessToken as string
 });
 
-type CloudinaryImage = { fields: { title: string, cloudinary_image: Array<{ url: string }> } };
-type CloudinaryVideo = { fields: { title: string, link: string } };
 type ContentfulImages = { fields: { title: string, content: Array<CloudinaryImage> } };
 type ContentfulVideos = { fields: { title: string, content: Array<CloudinaryVideo> } };
 

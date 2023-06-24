@@ -8,6 +8,8 @@ type ContentfulVideos = { title: string, content: Array<CloudinaryVideo> };
 
 type ImageOrVideo = CloudinaryImage | CloudinaryVideo;
 
+type ChunkedImages = { initialIndex: number, element: CloudinaryImage };
+
 type FetchedData = {
     concepts: ContentfulImages,
     digital: ContentfulImages,

@@ -13,7 +13,7 @@ export const Navigation: React.FC = () => {
     const pathname = usePathname();
     // console.log(window.matchMedia('(orientation: landscape)').matches);
 
-    const buttonsData: ButtonData[] = [{ name: 'concept', url: '/' }, { name: 'digital', url: '/digital' }, { name: 'animation', url: '/animation' }];
+    const buttonsData: ButtonData[] = [{ name: 'concept', url: '/' }, { name: 'digital', url: '/digital' }, { name: 'illustration', url: '/illustration' }, { name: 'design', url: '/design' }, { name: 'animation', url: '/animation' }];
 
     const buttonsList = buttonsData.map((item, index) => (
         <Link href={`${item.url}`} key={index + item.name} className={clsx(styles.link, item.url === pathname && styles.active)}>
