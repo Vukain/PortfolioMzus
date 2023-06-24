@@ -1,11 +1,11 @@
 
 import Image from 'next/image'
+import { NextPage } from 'next'
 
 import styles from './page.module.sass'
 
-import { fetchEntries } from './utils/fetchData'
-import { NextPage } from 'next'
-import { ImageGallery } from './shared/ImageGallery/ImageGallery';
+import { fetchEntries } from '@/utils/fetchData'
+import { ImageGallery } from '@/components/ImageGallery/ImageGallery';
 
 const Home = async () => {
 

@@ -1,9 +1,10 @@
 import 'normalize.css/normalize.css';
 import './globals.sass'
 
-import { Navigation } from './shared/Navigation/Navigation'
-import { PageTransition } from './shared/PageTransition/PageTransition'
 import { Lato } from 'next/font/google'
+
+import { Navigation } from '@/components/Navigation/Navigation'
+import { PageTransition } from '@/components/PageTransition/PageTransition'
 
 export const metadata = {
   title: 'Mzus - Portfolio',

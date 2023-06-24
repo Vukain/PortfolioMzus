@@ -2,7 +2,7 @@
 
 import styles from './VideoGallery.module.sass';
 
-import { determineImageOrVideo } from '@/app/utils/determineImageOrVIdeo';
+import { determineImageOrVideo } from '@/utils/determineImageOrVIdeo';
 
 import { PageTransition } from '../PageTransition/PageTransition';
 

@@ -1,6 +1,6 @@
 
-import { ImageGallery } from '../shared/ImageGallery/ImageGallery';
-import { fetchEntries } from '../utils/fetchData'
+import { ImageGallery } from '@/components/ImageGallery/ImageGallery';
+import { fetchEntries } from '@/utils/fetchData'
 
 const Design = async () => {
 

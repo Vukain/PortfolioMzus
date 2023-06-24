@@ -5,8 +5,8 @@ import { clsx } from 'clsx';
 
 import styles from './ImageGallery.module.sass';
 
-import { determineImageOrVideo } from '@/app/utils/determineImageOrVIdeo';
-import { splitIntoChunks } from '@/app/utils/splitIntoChunks';
+import { determineImageOrVideo } from '@/utils/determineImageOrVIdeo';
+import { splitIntoChunks } from '@/utils/splitIntoChunks';
 import { PageTransition } from '../PageTransition/PageTransition';
 import { InfiniteCarousel } from '../Carousel/InfiniteCarousel/InfiniteCarousel';
 

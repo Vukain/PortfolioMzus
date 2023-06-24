@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
-import { VideoGallery } from '../shared/VideoGallery/VideoGallery';
-import { fetchEntries } from '../utils/fetchData'
+import { VideoGallery } from '@/components/VideoGallery/VideoGallery';
+import { fetchEntries } from '@/utils/fetchData'
 
 const Animation = async () => {
 
