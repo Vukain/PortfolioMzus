@@ -1,16 +1,14 @@
-
 import { ImageGallery } from '@/components/ImageGallery/ImageGallery';
-import { fetchEntries } from '@/utils/fetchData'
+import { fetchEntries } from '@/utils/fetchData';
 
 const Illustration = async () => {
+  const fetchedEntries = (await fetchEntries()) as FetchedData;
 
-    const fetchedEntries = await fetchEntries() as FetchedData;
-
-    return (
-        <main>
-            <ImageGallery images={fetchedEntries.digital} columns={4} />
-        </main>
-    );
+  return (
+    <main>
+      <ImageGallery images={fetchedEntries.digital} columns={4} />
+    </main>
+  );
 };
 
 export default Illustration;

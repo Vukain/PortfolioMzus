@@ -1,17 +1,16 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 import { VideoGallery } from '@/components/VideoGallery/VideoGallery';
-import { fetchEntries } from '@/utils/fetchData'
+import { fetchEntries } from '@/utils/fetchData';
 
 const Animation = async () => {
+  const fetchedEntries = (await fetchEntries()) as FetchedData;
 
-    const fetchedEntries = await fetchEntries() as FetchedData;
-
-    return (
-        <main>
-            <VideoGallery videos={fetchedEntries.animations} />
-        </main>
-    );
+  return (
+    <main>
+      <VideoGallery videos={fetchedEntries.animations} />
+    </main>
+  );
 };
 
 export default Animation;

@@ -1,24 +1,19 @@
 import 'normalize.css/normalize.css';
-import './globals.sass'
+import './globals.sass';
 
-import { Lato } from 'next/font/google'
+import { Lato } from 'next/font/google';
 
-import { Navigation } from '@/components/Navigation/Navigation'
-import { PageTransition } from '@/components/PageTransition/PageTransition'
+import { Navigation } from '@/components/Navigation/Navigation';
+import { PageTransition } from '@/components/PageTransition/PageTransition';
 
 export const metadata = {
   title: 'Mzus - Portfolio',
   description: 'Mzus - Portfolio...',
-
 };
 
-const lato = Lato({ weight: ['300', '400', '700'], subsets: ['latin'] })
+const lato = Lato({ weight: ['300', '400', '700'], subsets: ['latin'] });
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       {/* <head>
@@ -34,7 +29,6 @@ export default function RootLayout({
         {children}
         {/* </PageTransition> */}
       </body>
-
     </html>
-  )
+  );
 }

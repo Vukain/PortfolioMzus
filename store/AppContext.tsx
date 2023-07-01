@@ -1,25 +1,15 @@
 import { createContext, useState, useContext } from 'react';
 
 interface ContextProps {
-    children: JSX.Element
-};
+  children: JSX.Element;
+}
 
-interface ContextType {
+interface ContextType {}
 
-};
-
-export const AppContext = createContext<ContextType>({
-
-});
+export const AppContext = createContext<ContextType>({});
 
 export const AppContextProvider: React.FC<ContextProps> = ({ children }) => {
+  const contextValue: ContextType = {};
 
-    const contextValue: ContextType = {
-
-    };
-
-    return (
-        <AppContext.Provider value={contextValue}>
-            {children}
-        </AppContext.Provider>);
+  return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };

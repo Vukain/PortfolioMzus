@@ -17,19 +17,22 @@ const nextConfig = {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
-      use: [{
-        loader: '@svgr/webpack', 
-        options: {
-          prettier: false,
-          svgo: true,
-          svgoConfig: {plugins: ['prefixIds'],},
-        titleProp: true,
-        ref: true,
-      }}],
-    })
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            prettier: false,
+            svgo: true,
+            svgoConfig: { plugins: ['prefixIds'] },
+            titleProp: true,
+            ref: true,
+          },
+        },
+      ],
+    });
 
-    return config
+    return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
