@@ -6,7 +6,7 @@ const Illustration = async () => {
 
   return (
     <main>
-      <ImageGallery images={fetchedEntries.digital} columns={4} />
+      <ImageGallery images={fetchedEntries.illustration} columns={3} />
     </main>
   );
 };

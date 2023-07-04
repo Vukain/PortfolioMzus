@@ -22,6 +22,8 @@ export const fetchEntries = cache(async () => {
 
   const [concepts] = imageLists.filter((item) => item.fields.title === 'concept-images');
   const [digital] = imageLists.filter((item) => item.fields.title === 'digital-images');
+  const [design] = imageLists.filter((item) => item.fields.title === 'design-images');
+  const [illustration] = imageLists.filter((item) => item.fields.title === 'illustration-images');
   const [animations] = videoLists.filter((item) => item.fields.title === 'animation-videos');
 
   // console.log(animations.fields.title)
@@ -29,6 +31,8 @@ export const fetchEntries = cache(async () => {
   const content = {
     concepts: concepts.fields,
     digital: digital.fields,
+    design: design.fields,
+    illustration: illustration.fields,
     animations: animations.fields,
   };
 

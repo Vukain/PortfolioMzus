@@ -69,7 +69,7 @@ export const ImageGallery: React.FC<Props> = ({ images, columns = 3 }) => {
   };
 
   const generateContent = () => {
-    if (images.content.length > 0) {
+    if (images?.content.length > 0) {
       if (columns > 1 && isMasonryEnabled) {
         return splitIntoChunks(columns, images.content).map((chunk, index) => {
           const column = chunk.map((item: ChunkedImages) => {
@@ -96,7 +96,7 @@ export const ImageGallery: React.FC<Props> = ({ images, columns = 3 }) => {
     }
   };
 
-  const carouselImages = images.content.filter((item) => {
+  const carouselImages = images?.content.filter((item) => {
     return determineImageOrVideo(item);
   });
 

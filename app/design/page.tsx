@@ -6,7 +6,7 @@ const Design = async () => {
 
   return (
     <main>
-      <ImageGallery images={fetchedEntries.digital} columns={5} />
+      <ImageGallery images={fetchedEntries.design} columns={3} />
     </main>
   );
 };

@@ -18,5 +18,7 @@ type ChunkedImages = { initialIndex: number; element: CloudinaryImage };
 type FetchedData = {
   concepts: ContentfulImages;
   digital: ContentfulImages;
+  design: ContentfulImages;
+  illustration: ContentfulImages;
   animations: ContentfulVideos;
 };
