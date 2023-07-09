@@ -1,6 +1,6 @@
 ## PortfolioMzus
 
-...early work in progress.
+...early work in progress, placeholder design.
 
 ## Features
 
